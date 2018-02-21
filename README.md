@@ -3,18 +3,18 @@
 Here i'm not going to explain what is Pig and how to use it. I created some example pig scripts which flattens 
 nested json files. 
 
-#### How to install Pig
+### How to install Pig
 You can find about it [here](http://pig.apache.org/docs/r0.17.0/start.html#Pig+Setup)
 
-#### How to quickly run and tests pig scripts
+### How to quickly run and tests pig scripts
 To quickly run and test pig scripts read [here](http://pig.apache.org/docs/r0.17.0/start.html#run)
 
 
-#### Store Pig data to DBStorage
+### Store Pig data to DBStorage
 To store Pig data to DBStorage you will need to copy library `./pig/lib/com.mysql.jdbc_5.1.5.jar` to your pig location
 `cp ./pig/lib/com.mysql.jdbc_5.1.5.jar $PIG_HOME/lib/`. This way you will be able to test it locally.
  
-##### Pig and Hadoop log level
+### Pig and Hadoop log level
 Copy the log4j config file to the folder where my pig scripts are located
 
 `cp /etc/pig/conf.dist/log4j.properties log4j_WARN`
