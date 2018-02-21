@@ -2,7 +2,7 @@
   "objects": [
     {
       "id": "MyInputData",
-      "filePath": "s3://perkbox-lukas/pig-test-01/input.json",
+      "filePath": "s3://[YOUR_BUCKET]/pig-test-01/input.json",
       "name": "MyInputData",
       "type": "S3DataNode"
     },

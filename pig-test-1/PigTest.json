@@ -2,7 +2,7 @@
   "objects": [
     {
       "id": "MyInputData",
-      "directoryPath": "s3://perkbox-lukas/pig-test-01",
+      "directoryPath": "s3://[YOUR_BUCKET]/pig-test-01",
       "name": "MyInputData",
       "type": "S3DataNode"
     },
@@ -34,7 +34,7 @@
     },
     {
       "id": "MyOutputData",
-      "directoryPath": "s3://perkbox-lukas/pig-test-01/output/#{format(@scheduledStartTime, 'YYYY-MM-dd-HH-mm')}",
+      "directoryPath": "s3://[YOUR_BUCKET]/pig-test-01/output/#{format(@scheduledStartTime, 'YYYY-MM-dd-HH-mm')}",
       "name": "MyOutputData",
       "type": "S3DataNode"
     },
