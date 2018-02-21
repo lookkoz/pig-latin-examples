@@ -1,0 +1,92 @@
+{
+  "total": {
+    "m": {
+      "value": {
+        "n": "15"
+      },
+      "currency": {
+        "s": "GBP"
+      }
+    }
+  },
+  "status": {
+    "s": "created"
+  },
+  "redemptionId": {
+    "s": "f805fccc-f6f4-4ec6-a43d-fdb28b06f249"
+  },
+  "uuid": {
+    "s": "f6892e43-d223-4908-a416-b6ae4ee52e86"
+  },
+  "date": {
+    "s": "2017-07-26T15:53:13+01:00"
+  },
+  "user": {
+    "m": {
+      "tenant": {
+        "s": "b6cfa826-141c-4a76-b83d-13f136c69527"
+      },
+      "uuid": {
+        "s": "f540d223-9e93-4046-99e5-32f6c7908e35"
+      }
+    }
+  },
+  "products": {
+    "l": [
+      {
+        "m": {
+          "items": {
+            "l": [
+              {
+                "m": {
+                  "code": {
+                    "s": "55xj70hs4234p472e8r9ifi529"
+                  },
+                  "uuid": {
+                    "s": "d73e5815-f93b-4b53-a010-97b91cd2265f"}
+                }
+              }
+            ]
+          },
+          "quantity": {
+            "n":"1"
+          },
+          "uuid": {
+            "s":"4fe06e3f-aa7b-4d09-b907-f1d14cfdb65c"
+          }
+        }
+      }
+    ]
+  },
+  "metadata":{
+    "l":[]
+  }
+}
+
+orders
+---------------------------------------
+uuid.s as order_id
+user.m.uuid.s as user_id
+redemptionId.s as redemption_id
+total.m.value.n as total_value
+total.m.currency.s as total_currency
+status.s as status
+date.s as date
+user.m.tenant.s as tenant
+---------------------------------------
+
+orders_items
+---------------------------------------
+uuid.s as order_id
+products.l[].m.items.l[].m.code.s as code
+products.l[].m.items.l[].m.uuid.s as item_id
+---------------------------------------
+
+orders_products
+---------------------------------------
+uuid.s as order_id
+products.l[].m.uuid.s as product_id
+products.l[].m.quantity.n as quantity
+---------------------------------------
+
+metadata.l[]

@@ -1,0 +1,58 @@
+{
+  "objects": [
+    {
+      "id": "MyInputData",
+      "directoryPath": "s3://perkbox-lukas/pig-test-01",
+      "name": "MyInputData",
+      "type": "S3DataNode"
+    },
+    {
+      "id": "MyPigActivity",
+      "input": {
+        "ref": "MyInputData"
+      },
+      "script": "orders = LOAD ${input1} USING JsonLoader('name:chararray,Items:bag{(uuid:map[s:chararray])}'); orders = FOREACH orders GENERATE $0, FLATTEN(Items.uuid) AS uuid; ${output1} = FOREACH orders GENERATE $0, uuid#'s' as uuid;",
+      "name": "MyPigActivity",
+      "runsOn": {
+        "ref": "MyEmrResource"
+      },
+      "type": "PigActivity",
+      "output": {
+        "ref": "MyOutputData"
+      },
+      "stage": "true"
+    },
+    {
+      "id": "MyEmrResource",
+      "region": "eu-west-1",
+      "masterInstanceType": "m1.small",
+      "enableDebugging": "true",
+      "name": "MyEmrResource",
+      "actionOnTaskFailure": "continue",
+      "type": "EmrCluster",
+      "terminateAfter": "25 Minutes"
+    },
+    {
+      "id": "MyOutputData",
+      "directoryPath": "s3://perkbox-lukas/pig-test-01/output/#{format(@scheduledStartTime, 'YYYY-MM-dd-HH-mm')}",
+      "name": "MyOutputData",
+      "type": "S3DataNode"
+    },
+    {
+      "failureAndRerunMode": "CASCADE",
+      "resourceRole": "DataPipelineDefaultResourceRole",
+      "role": "DataPipelineDefaultRole",
+      "pipelineLogUri": "#{myPipelineLog}",
+      "name": "Default",
+      "id": "Default",
+      "scheduleType": "ondemand"
+    }
+  ],
+  "parameters": [
+    {
+      "description": "Pipeline S3 log",
+      "id": "myPipelineLog",
+      "type": "AWS::S3::ObjectKey"
+    }
+  ]
+}

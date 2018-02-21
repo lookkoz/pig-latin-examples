@@ -1,0 +1,68 @@
+{
+  "objects": [
+    {
+      "id": "MyInputData",
+      "filePath": "s3://perkbox-lukas/pig-test-01/input.json",
+      "name": "MyInputData",
+      "type": "S3DataNode"
+    },
+    {
+      "type": "EmrCluster",
+      "id": "MyEmrResource",
+      "name": "MyEmrResource",
+      "masterInstanceType": "m3.xlarge",
+      "coreInstanceType": "m3.xlarge",
+      "enableDebugging": "true",
+      "actionOnTaskFailure": "continue",
+      "terminateAfter": "25 Minutes",
+      "applications": "Pig",
+      "releaseLabel": "emr-5.11.1"
+    },
+    {
+      "id": "myActivityId",
+      "input": {
+        "ref": "MyInputData"
+      },
+      "name": "EMR Pig job",
+      "runsOn": {
+        "ref": "MyEmrResource"
+      },
+      "maximumRetries": "2",
+      "type": "EmrActivity",
+      "step": [
+        "s3://us-east-1.elasticmapreduce/libs/script-runner/script-runner.jar,s3://us-east-1.elasticmapreduce/libs/pig/pig-script,--base-path,s3://us-east-1.elasticmapreduce/libs/pig/,--pig-versions,latest,--run-pig-script,--args,-f,#{myPigScript},-p,INPUT=#{myInputData},-p,OUTPUT=#{myOutputData}/#{format(@scheduledStartTime, 'YYYY-MM-dd-HH-mm')}"
+      ]
+    },
+    {
+      "failureAndRerunMode": "CASCADE",
+      "resourceRole": "DataPipelineDefaultResourceRole",
+      "role": "DataPipelineDefaultRole",
+      "pipelineLogUri": "#{myPipelineLog}",
+      "name": "Default",
+      "id": "Default",
+      "scheduleType": "ONDEMAND"
+    }
+  ],
+  "parameters": [
+    {
+      "description": "Pipeline S3 log",
+      "id": "myPipelineLog",
+      "type": "AWS::S3::ObjectKey"
+    },
+    {
+      "description": "S3 input location",
+      "id": "myInputData",
+      "type": "AWS::S3::ObjectKey"
+    },
+    {
+      "description": "S3 output location",
+      "id": "myOutputData",
+      "type": "AWS::S3::ObjectKey"
+    },
+    {
+      "description": "Pig Script S3 location",
+      "id": "myPigScript",
+      "type": "AWS::S3::ObjectKey"
+    }
+  ]
+}

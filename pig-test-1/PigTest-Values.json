@@ -1,0 +1,5 @@
+{
+    "values": {
+        "myPipelineLog": "s3://perkbox-staging-data-pipelines/logs"
+    }
+}
