@@ -63,3 +63,16 @@ EMR_DefaultRole --enable-debugging --release-label emr-5.11.1 --log-uri 's3n://[
 --instance-groups '[{"InstanceCount":1,"InstanceGroupType":"MASTER","InstanceType":"m3.xlarge",\
 "Name":"Master Instance Group"}]' --scale-down-behavior TERMINATE_AT_TASK_COMPLETION --region eu-west-1
 ```
+
+
+
+### SLF4J Failed to load class
+You may notice the following issue during running pig script
+```bash
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+```
+
+Here are some suggestions how to solve it
+https://stackoverflow.com/questions/7421612/slf4j-failed-to-load-class-org-slf4j-impl-staticloggerbinder
